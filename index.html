@@ -1,0 +1,180 @@
+<html>
+
+<head>
+    <title>
+        Life music test
+    </title>
+    <link rel="stylesheet" href="css/lifemusic.css">
+    <script src="/js/lifemusic.js"></script>
+    <script src="/js/test.js"></script>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div id="music"></div>
+    <script>
+        var reaction_list = [{
+            type: "like",
+            icon: "/image/likewithbg.svg",
+            time: 30 //in a second of audio,
+        }, {
+            type: "like",
+            icon: "/image/likewithbg.svg",
+            time: 35 //in a second of audio,
+        }, {
+            type: "like",
+            icon: "/image/likewithbg.svg",
+            time: 40 //in a second of audio,
+        }, {
+            type: "like",
+            icon: "/image/likewithbg.svg",
+            time: 44 //in a second of audio,
+        }, {
+            type: "like",
+            icon: "/image/likewithbg.svg",
+            time: 45 //in a second of audio,
+        }, {
+            type: "like",
+            icon: "/image/likewithbg.svg",
+            time: 60 //in a second of audio,
+        }]
+        const reaction = new Reaction(reaction_list, {
+            coordinates: {
+                list: [{
+                    x: [0, 175],
+                    y: [400, 0],
+                }, {
+                    x: [(250 + 175), (250 + 175 + 175)],
+                    y: [400, 0]
+                }],
+                config: {
+                    fixed: {
+                        x: true
+                    }
+                }
+            }
+
+        })
+        var config = {
+            sources: [
+                /*{
+                                "src": "/Attention-Cover-Niki-Nhi-Ha-320.mp3",
+                                "type": "audio/mpeg",
+                                "quality": "320kbps", //Show in label
+                            },*/
+                {
+                    "src": "/3107-2.mp3",
+                    "type": "audio/mpeg",
+                    "quality": "128kbps", //Show in label
+                }
+            ],
+            tracks: [{
+                "src": "/11.vtt",
+                "label": "Tiếng Việt",
+            }],
+            muted: "auto",
+            autoplay: true,
+            subtitle: "auto",
+            loop: "auto",
+            speed: "auto",
+            logo: {
+                src: "/image/logo.png",
+                position: {
+                    top: null,
+                    left: null,
+                    bottom: null,
+                    right: null
+                },
+                size: {
+                    width: 0,
+                    height: 0,
+                },
+                onClick: function(element) {
+                    console.log(element)
+                }
+            },
+            titlegroup: {
+                title: {
+                    text: "3 1 0 7 - 2"
+                },
+                artist: {
+                    text: "Dương x Nâu"
+                },
+                position: {
+                    top: null,
+                    left: null,
+                    bottom: null,
+                    right: null
+                },
+                onClick: function(element) {
+                    console.log(element)
+                }
+            },
+            chapters: {
+                list: [{
+                    text: "3 1 0 7 - 2",
+                    timeStart: 0
+                }, {
+                    text: "Già cùng nhau là được",
+                    timeStart: 60
+                }],
+                onClick: function(element, current_chapter) {
+                    console.log(element, current_chapter)
+                },
+                onUpdate: function(current_chapter){
+                    console.log(current_chapter)
+                }
+            },
+            thumbnail_img: "./thumbnail.jpg",
+            reactions: {
+                reactionAdapter: reaction,
+                list: [{
+                    type: "like",
+                    count: 100,
+                    icon: "/image/like.svg",
+                    onClick: function(element) {
+                        console.log(element)
+                    }
+                }, {
+                    type: "love",
+                    count: 1000,
+                    icon: "/image/love.svg",
+                    onClick: function(element) {
+                        console.log(element)
+                    }
+                }]
+            },
+            hotkey: {
+                list: {
+                    seekNext: {
+                        keyCode: 39, //ASCII key code, Arrow right on keybroad
+                        time: 10 //time in second
+                    },
+                    seekPrev: {
+                        keyCode: 37, //Arrow left on keybroad
+                        time: 10
+                    },
+                    volumeUp: {
+                        keyCode: 38, //Arrow up on keybroad
+                        value: 0.1 //Increase 0.1 volume when press arrow up
+                    },
+                    volumeDown: {
+                        keyCode: 40, //Arrow down on keybroad
+                        value: 0.1
+                    },
+                    togglePlay: {
+                        keyCode: 32 //Space on keybroad
+                    }
+                },
+                target: "player",
+                onEvent: function(event_type){
+                    console.log(event_type)
+                }
+            }
+        };
+        const dom = new DOM();
+        const music = new LifeMusic("music", config,dom);
+    </script>
+</body>
+
+</html>

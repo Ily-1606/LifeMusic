@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo lifemusic with desktop mode</title>
+    <script src="/js/lifemusic.js"></script>
+    <script src="/js/desktopDom.js"></script>
+    <link rel="stylesheet" href="/css/lifemusic-desktop.css">
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        const config = {
+            controller: {
+                animation: false
+            },
+            sources: [{
+                "src": "/3107-2.mp3",
+                "type": "audio/mpeg",
+                "quality": "128kbps", //Show in label
+            }],
+            tracks: [{
+                "src": "/11.vtt",
+                "label": "Tiếng Việt",
+            }],
+            subtitle: "auto",
+        };
+        const dom = new DesktopDom();
+        const music = new LifeMusic("root", config, dom);
+        var trackGroup;
+        music.onDomReady = function() {
+            trackGroup = music.findElement(".track");
+        }
+        music.renderSubtitle = function(cue) {
+            let newTrack = document.createElement("div");
+            newTrack.classList.add("track_text", "track_padding");
+            newTrack.textContent = cue.text;
+            newTrack.setAttribute("startTime", cue.startTime);
+            newTrack.setAttribute("endTime", cue.endTime);
+            trackGroup.appendChild(newTrack);
+            //console.log(cue)
+        }
+        music.configModeSubtitle.callbackshow = function(cue) {
+            element = music.configModeSubtitle.last_element;
+            element.classList.add("track_active");
+            trackGroup.scrollTop = element.offsetTop - trackGroup.offsetHeight / 2
+        }
+        music.configModeSubtitle.callbackhide = function() {
+            //To Do
+        }
+    </script>
+</body>
+
+</html>
